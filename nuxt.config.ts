@@ -23,7 +23,17 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'unplugin-icons/nuxt',
     '@nuxt/test-utils/module',
+    '@primevue/nuxt-module',
   ],
+  primevue: {
+    autoImport: false, // useless temp 20/06/2025
+    components: {
+      include: ['Button', 'DataTable', 'Column'],
+    },
+    options: {
+      unstyled: true,
+    },
+  },
   css: ['~/assets/css/tailwind.css'],
   postcss: {
     plugins: {
@@ -86,6 +96,7 @@ export default defineNuxtConfig({
               if (id.includes('ofetch')) return 'ofetch'
               if (id.includes('dayjs')) return 'dayjs'
               if (id.includes('lodash-es')) return 'lodash'
+              if (id.includes('primevue')) return 'primevue'
               if (id.match(/node_modules\/(vue|@vue|vue-router|pinia)\//)) return 'core'
               return 'vendor'
             }
