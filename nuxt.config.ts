@@ -15,7 +15,30 @@ export default defineNuxtConfig({
     buildAssetsDir: `/${appBuildAssetsDir}/`,
     /* head 可在 plugins/head 統一添加 */
   },
-  modules: ['@nuxt/eslint', '@pinia/nuxt', 'unplugin-icons/nuxt', '@nuxt/test-utils/module'],
+  modules: [
+    '@nuxt/eslint',
+    '@pinia/nuxt',
+    'unplugin-icons/nuxt',
+    '@nuxt/test-utils/module',
+    '@primevue/nuxt-module',
+  ],
+  primevue: {
+    // 需手動標明以免 Build 時全部載入
+    components: {
+      include: ['Button', 'DataTable', 'Column'],
+    },
+    // 需手動標明以免 Build 時全部載入
+    directives: {
+      include: [],
+    },
+    // 需手動標明以免 Build 時全部載入
+    composables: {
+      include: [],
+    },
+    options: {
+      unstyled: true,
+    },
+  },
   css: ['~/assets/css/tailwind.css'],
   postcss: {
     plugins: {
@@ -52,18 +75,19 @@ export default defineNuxtConfig({
               if (id.includes('ofetch')) return 'ofetch'
               if (id.includes('dayjs')) return 'dayjs'
               if (id.includes('lodash-es')) return 'lodash'
+              if (id.includes('primevue')) return 'primevue'
               if (id.match(/node_modules\/(vue|@vue|vue-router|pinia)\//)) return 'core'
               return 'vendor'
             }
           },
           chunkFileNames() {
-            return `${appBuildAssetsDir}/[name]_${dateStamp}_[hash:6].js`
+            return `${appBuildAssetsDir}/[name]_${dateStamp}_[hash:7].js`
           },
           entryFileNames() {
-            return `${appBuildAssetsDir}/[name]_${dateStamp}_[hash:6].js`
+            return `${appBuildAssetsDir}/[name]_${dateStamp}_[hash:7].js`
           },
           assetFileNames() {
-            return `${appBuildAssetsDir}/[name]_${dateStamp}_[hash:6].[ext]`
+            return `${appBuildAssetsDir}/[name]_${dateStamp}_[hash:7].[ext]`
           },
         },
       },
